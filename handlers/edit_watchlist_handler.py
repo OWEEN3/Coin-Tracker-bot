@@ -31,7 +31,7 @@ async def ask_quote(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(f"Not found. Let's try again.")
         await update.message.reply_text("Enter the base currency (e.g., BTC):")
         return ASK_BASE
-    await update.message.reply_text(BotResponses.CHOSE, reply_markup=get_main_menu())
+    await update.message.reply_text(BotResponses.CHOSE, reply_markup=await get_main_menu())
     return ConversationHandler.END
 
 conv_handler = ConversationHandler(
