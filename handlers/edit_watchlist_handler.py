@@ -1,8 +1,10 @@
 from telegram import Update
 from telegram.ext import ContextTypes, ConversationHandler, CallbackQueryHandler, CommandHandler, MessageHandler, filters
+
 from handlers.navigation import cancel
 from responses.response import BotResponses
 from keyboards.main_menu import get_main_menu
+from database.dao.trackings_dao import TrackingDAO
 ASK_BASE, ASK_QUOTE = range(2)
 
 async def start_edit_tracked(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -23,10 +25,7 @@ async def ask_quote(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print(price)
     if price:
         await update.message.reply_text(f"{symbol}: {price} added to your watchlist!")
-        if "tracked" not in context.user_data:
-            context.user_data["tracked"] = []
-        if symbol not in context.user_data["tracked"]:
-            context.user_data["tracked"].append(symbol)
+        await TrackingDAO.add(chat_id=update.effective_user.id, symbol=symbol)
     else:
         await update.message.reply_text(f"Not found. Let's try again.")
         await update.message.reply_text("Enter the base currency (e.g., BTC):")

@@ -8,7 +8,7 @@ from handlers.edit_watchlist_handler import conv_handler as edit_tracked
 from handlers.settings import settings_menu, button_handler as settings_button_handler
 
 def main():
-    app = Application.builder().token(settings.get_token).build()
+    app = Application.builder().token(settings.TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("cancel", cancel))
