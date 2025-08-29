@@ -1,12 +1,10 @@
-import asyncio
+from sqlalchemy import select, insert, delete
 
-from sqlalchemy import select, insert, delete, and_
-
-from database.models import Traking
+from database.models import Tracking
 from database.database import session_maker
 
 class TrackingDAO:
-    model = Traking
+    model = Tracking
     
     @classmethod
     async def get_user_tracking(cls, chat_id: int):
@@ -29,12 +27,9 @@ class TrackingDAO:
             return result.scalar()
     
     @classmethod
-    async def delete(cls, chat_id: int, symbol: str):
+    async def delete(cls, id: int):
         async with session_maker() as session:
-            query = delete(cls.model).where(
-                and_(cls.model.user_chat_id==chat_id, cls.model.symbol==symbol
-                )
-            )
+            query = delete(cls.model).where(cls.model.id==id)
             result = await session.execute(query)
             await session.commit()
             return True

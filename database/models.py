@@ -15,8 +15,8 @@ class Users(Base):
     notification_type: Mapped[str] = mapped_column(String)
     notification_interval: Mapped[int] = mapped_column(Integer)
 
-class Traking(Base):
-    __tablename__ = "traking"
+class Tracking(Base):
+    __tablename__ = "tracking"
 
     id: Mapped[IntPK]
     user_chat_id: Mapped[int] = mapped_column(ForeignKey("users.chat_id", ondelete="CASCADE"), nullable=False)

@@ -1,9 +1,9 @@
-import aiohttp
+from aiohttp import ClientSession
 
 async def fetch_prices(context):
     url = "https://api.binance.com/api/v3/ticker/price"
     try:
-        async with aiohttp.ClientSession() as session:
+        async with ClientSession() as session:
             async with session.get(url) as response:
                 if response.status == 200:
                     data = await response.json()

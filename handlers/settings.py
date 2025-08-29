@@ -1,5 +1,5 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import ContextTypes, ConversationHandler, CallbackQueryHandler, CommandHandler
+from telegram.ext import ContextTypes
 
 from responses.response import BotResponses
 from keyboards.main_menu import get_main_menu
@@ -25,5 +25,5 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.edit_message_text("📩 Вы выбрали тип уведомлений")
         await query.message.reply_text(BotResponses.CHOSE, reply_markup=await get_main_menu())
     elif query.data == "settings_back":
-        await query.edit_message_text("⬅️ Возврат в главное меню")
+        await query.edit_message_text("⬅️ Back to main menu")
         await query.message.reply_text(BotResponses.CHOSE, reply_markup=await get_main_menu())

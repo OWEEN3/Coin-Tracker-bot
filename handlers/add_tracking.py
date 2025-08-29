@@ -4,10 +4,10 @@ from telegram.ext import ContextTypes, ConversationHandler, CallbackQueryHandler
 from handlers.navigation import cancel
 from responses.response import BotResponses
 from keyboards.main_menu import get_main_menu
-from database.dao.trackings_dao import TrackingDAO
+from database.dao.tracking_dao import TrackingDAO
 ASK_BASE, ASK_QUOTE = range(2)
 
-async def start_edit_tracked(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def add_tracked(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
     await query.message.reply_text("Enter the base currency (e.g., BTC):")
@@ -33,8 +33,8 @@ async def ask_quote(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(BotResponses.CHOSE, reply_markup=await get_main_menu())
     return ConversationHandler.END
 
-conv_handler = ConversationHandler(
-    entry_points=[CallbackQueryHandler(start_edit_tracked, pattern="^edit_watchlist$")],
+add_handler = ConversationHandler(
+    entry_points=[CallbackQueryHandler(add_tracked, pattern="^add_tracking$")],
     states={
         ASK_BASE: [MessageHandler(filters.TEXT & ~filters.COMMAND, ask_base)],
         ASK_QUOTE: [MessageHandler(filters.TEXT & ~filters.COMMAND, ask_quote)],

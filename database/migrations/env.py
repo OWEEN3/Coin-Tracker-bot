@@ -4,7 +4,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
 
-from database.models import Users, Traking
+from database.models import Users, Tracking
 from database.database import Base
 from config import settings
 
