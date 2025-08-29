@@ -20,4 +20,17 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(BotResponses.CHOSE, reply_markup=await get_main_menu())
+    if update.message:
+        await update.message.reply_text(
+            BotResponses.CHOSE, 
+            reply_markup=await get_main_menu()
+        )
+    elif update.callback_query:
+        query = update.callback_query
+        await query.answer()
+        await query.edit_message_text(
+            BotResponses.CHOSE,
+            reply_markup=await get_main_menu()
+        )
+    else:
+        pass

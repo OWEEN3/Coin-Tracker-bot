@@ -11,7 +11,8 @@ async def edit_traсking_menu(update: Update, context: ContextTypes.DEFAULT_TYPE
     for track in tracking:
         keyboard.append([InlineKeyboardButton(f"🗑️ Delete {track.symbol}", callback_data=f"delete_tracking_{track.id}")])
     keyboard.append([InlineKeyboardButton("➕ Add new", callback_data='add_tracking')])
+    keyboard.append([InlineKeyboardButton("⬅️ Back", callback_data='back')])
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await query.message.reply_text("Your traсking:", reply_markup=reply_markup)
+    await query.edit_message_text("Your traсking:", reply_markup=reply_markup)
     
     

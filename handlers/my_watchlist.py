@@ -17,6 +17,6 @@ async def my_watchlist(update: Update, context: ContextTypes.DEFAULT_TYPE):
             text.append(
                 f"{tracking.symbol}: {context.application.bot_data.get("prices", {}).get(tracking.symbol)}\n"
             )
-        await query.message.reply_text("".join(text))
-    else: await query.message.reply_text("No coins to track")
+        await query.edit_message_text("".join(text))
+    else: await query.edit_message_text("No coins to track")
     await query.message.reply_text(BotResponses.CHOSE, reply_markup=await get_main_menu())

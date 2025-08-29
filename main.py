@@ -14,12 +14,16 @@ def main():
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("cancel", cancel))
+    app.add_handler(CallbackQueryHandler(cancel, pattern='^back$'))
+    
     app.add_handler(CallbackQueryHandler(my_watchlist, pattern='^my_tracking$'))
+    
     app.add_handler(CallbackQueryHandler(edit_traсking_menu, pattern='^edit_tracking$'))
     app.add_handler(add_tracking)
     app.add_handler(CallbackQueryHandler(delete_tracking, pattern='^delete_tracking'))
+    
     app.add_handler(CallbackQueryHandler(settings_menu, pattern='^settings$'))
-    app.add_handler(CallbackQueryHandler(settings_button_handler, pattern=r'^(set_notification_interval|set_notification_type|settings_back)$'))
+    app.add_handler(CallbackQueryHandler(settings_button_handler, pattern=r'^(set_notification_interval|set_notification_type_.+|set_notification_status_.+)$'))
 
     app.job_queue.run_repeating(fetch_prices, interval=60, first=4)
 
