@@ -7,6 +7,13 @@ class UsersDAO:
     model = Users
     
     @classmethod
+    async def get_users(cls):
+        async with session_maker() as session:
+            query = select(cls.model)
+            result = await session.execute(query)
+            return result.scalars().all()
+    
+    @classmethod
     async def get_user(cls, chat_id: int):
         async with session_maker() as session:
             query = select(cls.model).where(
