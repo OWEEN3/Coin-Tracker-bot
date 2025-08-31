@@ -10,7 +10,7 @@ ASK_BASE, ASK_QUOTE = range(2)
 async def add_tracked(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-    await query.message.reply_text("Enter the base currency (e.g., BTC):")
+    await query.edit_message_text("Enter the base currency (e.g., BTC):")
     return ASK_BASE
 
 async def ask_base(update: Update, context: ContextTypes.DEFAULT_TYPE):

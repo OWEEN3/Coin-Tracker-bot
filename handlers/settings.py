@@ -36,10 +36,10 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             changed_type = "new message"
         await query.edit_message_text(f"Notification type changed to {changed_type}", reply_markup=await get_settings_menu(update))
     
-    elif query.data == "set_notification_interval":
-        await query.edit_message_text("🔔 Вы выбрали настройку интервала уведомлений")
-        await query.message.reply_text(BotResponses.CHOSE, reply_markup=await get_main_menu())
-        await query.edit_message_text(BotResponses.CHOSE, reply_markup=await get_settings_menu(update))
+    # elif query.data == "set_notification_interval":
+    #     await query.edit_message_text("🔔 Вы выбрали настройку интервала уведомлений")
+    #     await query.message.reply_text(BotResponses.CHOSE, reply_markup=await get_main_menu())
+    #     await query.edit_message_text(BotResponses.CHOSE, reply_markup=await get_settings_menu(update))
     
     elif query.data == "settings_back":
         await query.edit_message_text("⬅️ Back to main menu")

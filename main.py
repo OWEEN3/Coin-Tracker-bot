@@ -8,6 +8,7 @@ from handlers.add_tracking import add_handler as add_tracking
 from handlers.delete_tracking import delete_tracking
 from handlers.edit_tracking import edit_traсking_menu
 from handlers.settings import settings_menu, button_handler as settings_button_handler
+from handlers.notification_interval import conv_handler as edit_interval
 
 def main():
     app = Application.builder().token(settings.TOKEN).build()
@@ -23,7 +24,8 @@ def main():
     app.add_handler(CallbackQueryHandler(delete_tracking, pattern='^delete_tracking'))
     
     app.add_handler(CallbackQueryHandler(settings_menu, pattern='^settings$'))
-    app.add_handler(CallbackQueryHandler(settings_button_handler, pattern=r'^(set_notification_interval|set_notification_type_.+|set_notification_status_.+)$'))
+    app.add_handler(CallbackQueryHandler(settings_button_handler, pattern=r'^(set_notification_type_.+|set_notification_status_.+)$'))
+    app.add_handler(edit_interval)
 
     app.job_queue.run_repeating(fetch_prices, interval=60, first=4)
 
