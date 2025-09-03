@@ -34,7 +34,7 @@ def main():
 
     app.job_queue.run_repeating(fetch_prices, interval=60, first=4)
 
-    print("Бот запущен...")
+    print("The bot has been launched...")
     app.run_polling()
 
 if __name__ == "__main__":

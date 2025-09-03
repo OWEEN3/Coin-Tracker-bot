@@ -22,7 +22,6 @@ async def ask_quote(update: Update, context: ContextTypes.DEFAULT_TYPE):
     symbol = context.user_data["base"] + update.message.text.upper()
     prices = context.application.bot_data.get("prices", {})
     price = prices.get(symbol)
-    print(price)
     if price:
         await update.message.reply_text(f"{symbol}: {price} added to your watchlist!")
         await TrackingDAO.add(chat_id=update.effective_user.id, symbol=symbol)

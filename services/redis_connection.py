@@ -13,9 +13,9 @@ def redis_session(func):
                 result = await func(cls, r, *args, **kwargs)
                 return result
             else:
-                print("⚠️ Redis не отвечает")
+                print("⚠️ Redis does not respond")
         except Exception as e:
-            print(f"❌ Ошибка подключения к Redis: {e}")
+            print(f"❌ Connection error to Redis: {e}")
         finally:
             if r is not None:
                 await r.aclose()
