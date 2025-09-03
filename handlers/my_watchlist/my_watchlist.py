@@ -36,4 +36,6 @@ async def my_watchlist(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 name=str(user.chat_id),
                 data = {"chat_id": user.chat_id, "message_id": msg.message_id, "type": user.notification_type}
             )
-    else: await query.edit_message_text("No coins to track")
+    else: await query.edit_message_text("No coins to track", reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton(text="⬅️ Back", callback_data="back_watchlist")]
+            ]))
