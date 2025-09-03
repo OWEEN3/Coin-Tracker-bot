@@ -12,9 +12,9 @@ class Users(Base):
 
     id: Mapped[IntPK]
     chat_id: Mapped[int] = mapped_column(BigInteger, nullable=False, unique=True)
-    notification_status: Mapped[str] = mapped_column(String)
-    notification_type: Mapped[str] = mapped_column(String)
-    notification_interval: Mapped[int] = mapped_column(Integer)
+    update_status: Mapped[str] = mapped_column(String)
+    update_type: Mapped[str] = mapped_column(String)
+    update_interval: Mapped[int] = mapped_column(Integer)
 
 class Tracking(Base):
     __tablename__ = "tracking"

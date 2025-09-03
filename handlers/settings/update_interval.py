@@ -7,10 +7,10 @@ from responses.response import BotResponses
 from keyboards.settings_menu import get_settings_menu
 ASK_TIME = range(1)
 
-async def start_edit_notification_interval(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def start_edit_update_interval(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-    await query.edit_message_text("Enter the interval for notifications in seconds (minimum 60):")
+    await query.edit_message_text("Enter the update interval in seconds (minimum 60):")
     return ASK_TIME
 
 async def ask_time(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -19,9 +19,9 @@ async def ask_time(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if interval < 60:
             await update.message.reply_text("The interval must be at least 60 seconds. Please re-enter:")
             return ASK_TIME
-        await UsersDAO.edit_notification_interval(
+        await UsersDAO.edit_update_interval(
             chat_id=update._effective_user.id,
-            notification_interval=interval
+            update_interval=interval
         )
         await update.message.reply_text(BotResponses.CHOSE, reply_markup=await get_settings_menu(update))
         return ConversationHandler.END
@@ -31,7 +31,7 @@ async def ask_time(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
 
 conv_handler = ConversationHandler(
-    entry_points=[CallbackQueryHandler(start_edit_notification_interval, pattern="^set_notification_interval$")],
+    entry_points=[CallbackQueryHandler(start_edit_update_interval, pattern="^set_update_interval$")],
     states={
         ASK_TIME: [MessageHandler(filters.TEXT & ~filters.COMMAND, ask_time)]
     },

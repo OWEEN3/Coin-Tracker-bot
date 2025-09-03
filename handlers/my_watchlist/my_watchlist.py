@@ -27,14 +27,14 @@ async def my_watchlist(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 [InlineKeyboardButton(text="⬅️ Back", callback_data="back_watchlist")]
             ])
         )
-        if user.notification_status == "on":
+        if user.update_status == "on":
             await RedisDAO.set(key=user.chat_id, value=json.dumps(trackings_list))
             context.application.job_queue.run_repeating(
                 update_watchlist_job,
-                interval=user.notification_interval,
-                first=user.notification_interval,
+                interval=user.update_interval,
+                first=user.update_interval,
                 name=str(user.chat_id),
-                data = {"chat_id": user.chat_id, "message_id": msg.message_id, "type": user.notification_type}
+                data = {"chat_id": user.chat_id, "message_id": msg.message_id, "type": user.update_type}
             )
     else: await query.edit_message_text("No coins to track", reply_markup=InlineKeyboardMarkup([
                 [InlineKeyboardButton(text="⬅️ Back", callback_data="back_watchlist")]

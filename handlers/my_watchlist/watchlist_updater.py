@@ -12,7 +12,7 @@ async def update_watchlist_job(context: CallbackContext):
     job_data = context.job.data
     chat_id = job_data["chat_id"]
     message_id = job_data["message_id"]
-    notification_type = job_data["type"]
+    update_type = job_data["type"]
     try:
         trackings = json.loads(await RedisDAO.get(key=chat_id))
         text = []
@@ -20,7 +20,7 @@ async def update_watchlist_job(context: CallbackContext):
             price = context.bot_data.get("prices", {}).get(tracking, {"N/A"})
             text.append(f"{tracking}: {price}\n")
         text.append(f"Updated at: {datetime.now(timezone.utc).strftime("%H:%M:%S")}")
-        if notification_type == "update_message":
+        if update_type == "update_message":
             await context.bot.edit_message_text(
                 chat_id=chat_id,
                 message_id=message_id,
